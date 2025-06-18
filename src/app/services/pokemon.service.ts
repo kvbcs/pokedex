@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, pipe } from 'rxjs';
-import { Pokemon } from '../app/types';
+import { Pokemon } from '../types';
 import {map} from 'rxjs/operators'
 
 @Injectable({

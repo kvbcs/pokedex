@@ -1,9 +1,10 @@
-<div class="cards-container">
-@for (let pokemon of pokemons$ | async; track let i) {
-  <app-cards
-    [name]="pokemon.name"
-    [imageUrl]="pokemon.imageUrl">
-  </app-cards>
-}
+<app-searchbar></app-searchbar>
 
+<div class="cards-container">
+  @for (pokemon of filteredPokemons() | async; track pokemon.name; let i = $index) {
+    <app-cards
+      [name]="pokemon.name"
+      [url]="pokemon.url">
+    </app-cards>
+  }
 </div>
