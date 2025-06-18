@@ -1,0 +1,9 @@
+<div class="cards-container">
+@for (let pokemon of pokemons$ | async; track let i) {
+  <app-cards
+    [name]="pokemon.name"
+    [imageUrl]="pokemon.imageUrl">
+  </app-cards>
+}
+
+</div>
