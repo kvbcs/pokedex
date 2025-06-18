@@ -1,60 +1,96 @@
-# Pokedex
+Exercice Angular — Pokédex avec HTTPClient et Router
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+Objectifs pédagogiques :
 
-## Development server
+- Utiliser HttpClient pour appeler une API REST
 
-To start a local development server, run:
+- Afficher dynamiquement une liste à partir d’un Observable
 
-```bash
-ng serve
-```
+- Implémenter un système de tri
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Utiliser le Routing Angular pour naviguer vers une page de détails
 
-## Code scaffolding
+- Passer un paramètre dynamique dans l’URL 
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Utiliser un service Angular pour centraliser les appels API
 
-```bash
-ng generate component component-name
-```
+Contexte du projet
+Tu vas créer un mini Pokédex Angular connecté à l’API publique https://pokeapi.co, capable d’afficher les Pokémons, de les trier, et de consulter leur fiche détaillée via une navigation.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+​
 
-```bash
-ng generate --help
-```
+Étapes de réalisation
 
-## Building
+​
 
-To build the project run:
+Afficher la liste des Pokémons
+Endpoint utilisé : https://pokeapi.co/api/v2/pokemon?limit=50
 
-```bash
-ng build
-```
+​
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Objectif : Afficher les 50 premiers Pokémons avec :
 
-## Running unit tests
+Nom
+Image (à partir de l’ID ou via l’API) 👉 https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/
+Ajouter un tri dynamique
+Tri A → Z ou Z → A sur le nom
+Tri par type
+Utiliser un select ou des boutons radio
+Routing + Détails Pokémon
+Possibilité de faire une recherche par nom de pokemon
+​
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Quand on clique sur un Pokémon, rediriger vers /pokemon/:id et afficher :
 
-```bash
-ng test
-```
+Nom
+ID
+Image
+Types
+Taille / Poids
+Statistiques de base
+Abilities
+​
 
-## Running end-to-end tests
+🔗 Exemple d’URL pour un détail :
 
-For end-to-end (e2e) testing, run:
+https://pokeapi.co/api/v2/pokemon/pikachu
 
-```bash
-ng e2e
-```
+​
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+📤Organisation des fichiers
 
-## Additional Resources
+PokemonService : méthodes getPokemons() et getPokemonDetails()
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-# pokedex
+PokemonListComponent : appel de la liste, tri et navigation vers la page de détails
+
+PokemonDetailComponent : appel getPokemonDetails(route.params.name) et affichage
+
+​
+
+✅ Résultat attendu Une app Angular simple, responsive, avec :
+
+Liste de 50 Pokémons triables
+
+Navigation vers les détails via /pokemons/:name
+
+Comportement fluide, sans rechargement
+
+Code structuré en service, composants, routing
+
+consommer une API avec HTTPClient et naviguer avec le router
+
+filtrage par type/nom
+
+recherche par nom
+
+Modalités pédagogiques
+Réalisation en binome
+
+Modalités d'évaluation
+Qualité du code et explication du code lors de la restitution oral 
+
+Livrables
+Github
+
+Critères de performance
+Fonctionne bien et code propre 
