@@ -1,1 +1,6 @@
-<input #searchInput (input)="onSearchChange(searchInput.value)" placeholder="Rechercher un Pokémon..." />
+<input
+  type="text"
+  placeholder="Rechercher un Pokémon..."
+  (input)="handleInput($event)"
+  class="search-input"
+/>

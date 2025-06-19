@@ -1,22 +1,19 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-
 @Component({
   selector: 'app-searchbar',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './searchbar.component.html',
-  styleUrl: './searchbar.component.css'
+  styleUrl: './searchbar.component.css',
 })
 export class SearchbarComponent {
-// searchTerm: string = '';
+  @Output() searchChange = new EventEmitter<string>();
 
-// onSearchChange(value: string) {
-//   console.log('Recherche mise à jour :', value);
-// }
-@Output() searchChange = new EventEmitter<string>();
-
-onSearchChange(value: string): void {
-  this.searchChange.emit(value);
-}
+  handleInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const value = target?.value || '';
+    this.searchChange.emit(value);
+  }
 }

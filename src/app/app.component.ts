@@ -7,7 +7,8 @@ import { SearchbarComponent } from './SHARED/COMPONENTS/searchbar/searchbar.comp
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CardsComponent, PokemonListComponent,PokemonDetailComponent, SearchbarComponent ],
+  standalone: true,
+  imports: [RouterOutlet, PokemonListComponent ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

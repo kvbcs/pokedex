@@ -7,9 +7,6 @@ import { SearchbarComponent } from './SHARED/COMPONENTS/searchbar/searchbar.comp
 
 
 export const routes: Routes = [
-  { path: '', component: AppComponent },
-  { path: 'cards', component: CardsComponent },
-  { path: 'pokemons', component: PokemonListComponent },
+  { path: '', component: PokemonListComponent },
   { path: 'pokemons/:id', component: PokemonDetailComponent },
-  { path: 'searchbar', component: SearchbarComponent }
 ];

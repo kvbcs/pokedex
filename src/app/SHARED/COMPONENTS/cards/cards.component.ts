@@ -1,11 +1,9 @@
 import { Component, inject, Input } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { PokemonService } from '../../../CORE/SERVICES/pokemon.service';
 
 @Component({
   selector: 'app-cards',
-  imports: [AsyncPipe, RouterLink],
+  imports: [],
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css']
 })

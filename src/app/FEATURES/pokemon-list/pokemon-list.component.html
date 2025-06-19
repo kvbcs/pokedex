@@ -1,10 +1,11 @@
-<app-searchbar></app-searchbar>
+<app-searchbar (searchChange)="onSearchChange($event)"></app-searchbar>
 
 <div class="cards-container">
-  @for (pokemon of filteredPokemons() | async; track pokemon.name; let i = $index) {
+  @for (pokemon of filteredPokemons(); track pokemon.name) {
     <app-cards
       [name]="pokemon.name"
-      [url]="pokemon.url">
-    </app-cards>
+      [url]="pokemon.url"
+      [id]="pokemon.id" />
+
   }
 </div>
