@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-cards', // Nom de la balise HTML pour ce composant → <app-cards>
 
+
   // Angular 18+ standalone : ici tu pourrais ajouter CommonModule, RouterLink, etc. si nécessaire
   imports: [],
 
@@ -30,6 +31,7 @@ export class CardsComponent {
     // .pop() récupère le dernier segment, qui correspond à l’ID du Pokémon
     const id = url.split('/').filter(Boolean).pop();
 
+
     // On reconstruit l’URL de l’image à partir de l’ID
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
   }
@@ -41,6 +43,7 @@ export class CardsComponent {
   @Input() url!: string;  // Son URL vers l’API
 
   // 💉 Injection du service Pokémon (version moderne avec inject() au lieu de constructor)
+
   public pokemonService = inject(PokemonService);
 
   // 👇 Observable contenant les 50 pokémons (non utilisé ici — peut être supprimé si inutile)
@@ -56,4 +59,5 @@ goToDetail(): void {
 }
 
 }
+
 

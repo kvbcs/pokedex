@@ -5,12 +5,14 @@ La classe "card" est utilisée pour le styliser dans le fichier CSS associé (ca
 <div class="card" (click)="goToDetail()">
 
   <!-- 
+
   Image du Pokémon :
   - [src] est une liaison de propriété Angular : elle appelle la méthode getImageUrl(url)
     → Cette méthode prend l'URL de l'API et en extrait l'ID pour construire l'URL de l’image officielle du sprite.
   - [alt]="name" permet d’ajouter une description textuelle de l’image, ici le nom du Pokémon
   -->
   <img [src]=getImageUrl(url) [alt]="name" />
+
 
   <!-- 
   Affichage du nom du Pokémon :

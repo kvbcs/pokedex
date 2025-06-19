@@ -12,9 +12,11 @@ import { PokemonDetailComponent } from './FEATURES/pokemon-detail/pokemon-detail
 
 export const routes: Routes = [
   // 🏠 Route racine → quand l’utilisateur visite "/", on affiche la liste des Pokémon
+
   { path: '', component: PokemonListComponent },
 
   // 🔍 Route dynamique → quand l’utilisateur visite "/pokemons/25" (ou n'importe quel ID ou nom),
   // on affiche le détail du Pokémon dans le composant PokemonDetailComponent
   { path: 'pokemons/:id', component: PokemonDetailComponent },
+
 ];

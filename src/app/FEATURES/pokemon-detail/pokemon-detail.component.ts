@@ -28,6 +28,7 @@ import { PokemonDetail } from '../../CORE/MODELS/types';
   styleUrl: './pokemon-detail.component.css'      // Lien vers le CSS associé
 })
 
+
 export class PokemonDetailComponent implements OnInit {
   // 💉 On injecte le service de routing pour lire les paramètres dans l’URL
   private route = inject(ActivatedRoute);
@@ -39,6 +40,7 @@ export class PokemonDetailComponent implements OnInit {
   pokemon?: PokemonDetail;
 
     // Méthode appelée automatiquement quand le composant est initialisé
+
   ngOnInit(): void {
     // 🔍 On récupère le paramètre "id" dans l’URL : /pokemons/:id
     // Ce peut être soit l’ID numérique (ex: 25), soit le nom (ex: "pikachu")
@@ -47,10 +49,10 @@ export class PokemonDetailComponent implements OnInit {
     // ✅ Si l’ID est bien présent, on fait un appel API pour récupérer les données du Pokémon
     if (id) {
       this.pokemonService.getPokemonDetails(id).subscribe((data) => {
+
         // Quand la réponse de l’API arrive, on stocke les données dans "pokemon"
         this.pokemon = data;
       });
     }
   }
 }
-

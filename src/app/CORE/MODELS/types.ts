@@ -42,6 +42,7 @@ export interface PokemonDetail {
   }[];
 
   // 🔮 Capacités spéciales (ex: "static", "overgrow")
+
   abilities: {
     ability: {
       name: string; // nom de la capacité
@@ -66,3 +67,4 @@ export interface PokemonType {
     name: string; // nom du type (ex: "electric")
   };
 }
+

@@ -1,4 +1,5 @@
 // On importe les outils Angular nécessaires
+
 import { Component, EventEmitter, Output } from '@angular/core';
 // Component → décorateur pour déclarer un composant
 // EventEmitter → permet d’émettre un événement vers le composant parent
@@ -19,10 +20,12 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './searchbar.component.css',     // Fichier CSS pour le style du composant
 })
 
+
 export class SearchbarComponent {
   // ✅ Création d’un événement "searchChange" que le composant parent peut écouter
   // Le type de données envoyées est "string" → la chaîne tapée par l’utilisateur
   @Output() searchChange = new EventEmitter<string>();
+
 
 
   // ✅ Méthode appelée à chaque frappe clavier dans le champ <input>
