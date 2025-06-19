@@ -6,8 +6,11 @@ import { HttpClient } from '@angular/common/http';
 
 // On importe Observable (pour la gestion de flux de données asynchrones) et map (pour transformer les données reçues)
 import { Observable, map } from 'rxjs';
-import { PokemonDetail, PokemonList, PokemonListResponse } from '../MODELS/types';
-
+import {
+  PokemonDetail,
+  PokemonList,
+  PokemonListResponse,
+} from '../MODELS/types';
 
 // Décorateur Angular : rend ce service disponible à l'échelle de l'application
 @Injectable({
@@ -29,7 +32,10 @@ export class PokemonService {
       map((response) =>
         response.results.map((pokemon) => {
           // On extrait l'ID depuis l’URL (qui est de la forme ".../pokemon/25/")
-          const id = parseInt(pokemon.url.split('/').filter(Boolean).pop() || '0', 10);
+          const id = parseInt(
+            pokemon.url.split('/').filter(Boolean).pop() || '0',
+            10
+          );
 
           // On retourne un objet enrichi : { name, url, id }
           return { ...pokemon, id };
