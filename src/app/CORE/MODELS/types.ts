@@ -1,45 +1,68 @@
+// ✅ Représente un élément de la liste des Pokémon (utilisé dans le composant liste)
 export interface PokemonList {
-  name: string; // nom du Pokémon (ex: "pikachu")
-  url: string; // URL complète vers le détail de ce Pokémon
-  id: number; // ID qu'on extrait nous-mêmes à partir de l'URL
+  name: string; // 🏷️ Nom du Pokémon (ex: "pikachu")
+  url: string;  // 🔗 URL complète vers les détails de ce Pokémon
+  id: number;   // 🆔 Identifiant du Pokémon (extrait manuellement depuis l'URL)
 }
 
+// ✅ Réponse brute de l'API PokéAPI lorsqu'on appelle la liste de Pokémon (/pokemon)
 export type PokemonListResponse = {
-  count: number;
-  results: { name: string; url: string }[];
+  count: number; // 📊 Nombre total de Pokémon dans la base
+  results: { 
+    name: string; // 🏷️ Nom du Pokémon
+    url: string;  // 🔗 URL complète vers son détail
+  }[];
 }
 
-// Interface pour les détails d’un Pokémon (quand on appelle /pokemon/{name ou id})
+// ✅ Interface complète pour les détails d’un Pokémon (/pokemon/{name ou id})
 export interface PokemonDetail {
-  id: number; // ID du Pokémon
-  name: string; // Nom du Pokémon
-  height: number; // Taille (en décimètres dans l’API)
-  weight: number; // Poids (en hectogrammes dans l’API)
+  id: number;      // 🆔 Identifiant du Pokémon
+  name: string;    // 🏷️ Nom du Pokémon
+  height: number;  // 📏 Taille (en décimètres selon l'API)
+  weight: number;  // ⚖️ Poids (en hectogrammes selon l'API)
 
-  // Liste des types du Pokémon (ex: [{ type: { name: 'electric' } }])
+  // 🧬 Liste des types (ex: [{ type: { name: 'electric' } }])
   types: {
     type: {
-      name: string; // nom du type (fire, grass, etc.)
+      name: string; // nom du type (ex: "fire", "water", etc.)
     };
   }[];
 
-  // Objets contenant les URLs des sprites/images du Pokémon
+  // 🖼️ Objets contenant les différentes images (sprites)
   sprites: {
-    front_default: string; // image principale par défaut
+    front_default: string; // sprite de face par défaut
   };
 
-  // Statistiques de base (ex: HP, Attack, Defense)
+  // 📊 Liste des statistiques de base (HP, attack, defense, etc.)
   stats: {
-    base_stat: number; // valeur de la stat (ex: 50)
+    base_stat: number; // valeur de la statistique (ex: 80)
     stat: {
-      name: string; // nom de la stat (ex: "attack")
+      name: string;     // nom de la statistique (ex: "attack")
     };
   }[];
 
-  // Capacités du Pokémon (ex: "static", "blaze"...)
+  // 🔮 Capacités spéciales (ex: "static", "overgrow")
   abilities: {
     ability: {
       name: string; // nom de la capacité
     };
   }[];
+}
+
+// ✅ Élément enrichi utilisé dans notre app pour afficher la liste + les types
+export interface PokemonListItem {
+  name: string; // 🏷️ Nom du Pokémon
+  url: string;  // 🔗 URL vers les détails du Pokémon
+  id: number;   // 🆔 ID extrait de l’URL
+
+  // 🧬 Types du Pokémon (ex: [{ type: { name: 'grass' } }])
+  // On rend cette propriété optionnelle car elle est ajoutée manuellement après appel
+  types?: { type: { name: string } }[];
+}
+
+// ✅ Interface utilitaire pour typer un objet représentant un type de Pokémon
+export interface PokemonType {
+  type: { 
+    name: string; // nom du type (ex: "electric")
+  };
 }

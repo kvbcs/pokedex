@@ -7,6 +7,8 @@ import { Component, inject, Input } from '@angular/core';
 import { PokemonService } from '../../../CORE/SERVICES/pokemon.service';
 // On importe le service qui permet de faire des appels API vers la PokéAPI
 
+import { Router } from '@angular/router'; 
+
 
 @Component({
   selector: 'app-cards', // Nom de la balise HTML pour ce composant → <app-cards>
@@ -43,5 +45,15 @@ export class CardsComponent {
 
   // 👇 Observable contenant les 50 pokémons (non utilisé ici — peut être supprimé si inutile)
   pokemons$ = this.pokemonService.getPokemons();
+
+
+  public router = inject(Router); // injection du router
+
+// Méthode appelée quand on clique sur la carte
+goToDetail(): void {
+  const id = this.url.split('/').filter(Boolean).pop();
+  this.router.navigate(['/pokemons', id]);
+}
+
 }
 

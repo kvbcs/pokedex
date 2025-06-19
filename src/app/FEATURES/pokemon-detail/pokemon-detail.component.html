@@ -1,1 +1,61 @@
-<p>pokemon-detail works!</p>
+<!-- 
+✅ Angular 18+ : On vérifie que le Pokémon est bien chargé depuis le composant TS
+- "pokemon" vient de la propriété du TS
+- On crée un alias temporaire "p" pour simplifier le HTML
+-->
+@if (pokemon; as p) {
+
+  <!-- Conteneur principal pour les détails du Pokémon -->
+  <div class="pokemon-detail">
+
+    <!-- Titre : affiche l'ID et le nom du Pokémon -->
+    <h2>#{{ p.id }} - {{ p.name | titlecase }}</h2>
+    <!-- titlecase = transforme "pikachu" → "Pikachu" -->
+
+    <!-- Image principale (sprite officiel) -->
+    <img [src]="p.sprites.front_default" [alt]="p.name" />
+
+    <!-- Affichage de la taille (API la donne en décimètres → conversion en mètres) -->
+    <p><strong>Taille :</strong> {{ p.height / 10 }} m</p>
+
+    <!-- Affichage du poids (API → hectogrammes → kg) -->
+    <p><strong>Poids :</strong> {{ p.weight / 10 }} kg</p>
+
+    <!-- 🧬 Affichage des types (ex: fire, water) -->
+   <p><strong>Types :</strong>
+  @for (t of p.types; track t.type.name) {
+    <ng-container>
+      {{ t.type.name }}
+      @if (!$last) {
+        <span>, </span>
+      }
+    </ng-container>
+  }
+</p>
+
+    <!-- 🧠 Affichage des capacités (abilities) -->
+  <p><strong>Capacités :</strong>
+  @for (a of p.abilities; track a.ability.name) {
+    <ng-container>
+      {{ a.ability.name }}
+      @if (!$last) {
+        <span>, </span>
+      }
+    </ng-container>
+  }
+</p>
+
+
+    <!-- 📊 Affichage des statistiques (ex: hp, attack...) -->
+    <div>
+      <strong>Statistiques :</strong>
+      <ul>
+        @for (s of p.stats; track s.stat.name) {
+          <li>{{ s.stat.name }} : {{ s.base_stat }}</li>
+        }
+      </ul>
+    </div>
+
+  </div> <!-- Fin du conteneur .pokemon-detail -->
+
+}
