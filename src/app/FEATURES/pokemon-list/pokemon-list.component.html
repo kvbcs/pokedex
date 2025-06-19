@@ -4,32 +4,64 @@ Ce composant permet à l’utilisateur de taper du texte dans un champ de recher
 Il émet un événement "searchChange" dès que l’utilisateur écrit quelque chose.
 (onSearchChange($event)) → on appelle la méthode "onSearchChange" dans le fichier .ts en lui passant le mot recherché.
 -->
-<app-searchbar (searchChange)="onSearchChange($event)"></app-searchbar>
+<!-- ✅ Conteneur horizontal pour la barre de recherche et les filtres -->
+<div class="search-filter-row">
 
-<!--
-Conteneur des cartes de Pokémon, probablement stylisé via la classe CSS "cards-container"
--->
+  <!-- 🔍 Barre de recherche (composant personnalisé) -->
+  <app-searchbar (searchChange)="onSearchChange($event)"></app-searchbar>
+
+  <!-- 🧪 Section filtres : types et tri -->
+  <div class="filter-section">
+    
+    <!-- 🎯 Filtre par type (liste déroulante multi-sélection) -->
+    <label for="typeSelect">Filtrer par type :</label><br />
+    <select 
+      id="typeSelect"
+      multiple
+      (change)="onMultiTypeChange($event)"
+      class="type-select"
+    >
+      <!-- ✅ Syntaxe Angular 18+ : boucle @for -->
+      @for (type of types; track type) {
+        <!-- Chaque option représente un type de Pokémon -->
+        <option [value]="type">{{ type | titlecase }}</option>
+      }
+    </select>
+
+    <!-- 🔁 Bouton pour réinitialiser les filtres sélectionnés -->
+    <button class="reset-filters-btn" (click)="resetFilters()">Réinitialiser les filtres</button>
+
+    <!-- ⬆️⬇️ Menu déroulant pour trier la liste -->
+    <label for="sortSelect">Trier par :</label><br />
+    <select id="sortSelect" (change)="onSortChange($event)" class="sort-select">
+      <option value="name-asc">Nom A → Z</option>
+      <option value="name-desc">Nom Z → A</option>
+      <option value="id-asc">ID croissant</option>
+      <option value="id-desc">ID décroissant</option>
+    </select>
+
+  </div>
+</div>
+
+<!-- 📦 Conteneur des cartes de Pokémon -->
 <div class="cards-container">
+
   <!--
-  Angular 18+ syntaxe : @for = remplace l’ancien *ngFor
-  On parcourt ici la liste retournée par la méthode filteredPokemons()
-  track pokemon.name : indique à Angular de suivre les changements via le nom (clé d’identification unique pour optimiser les performances)
+  🔁 Affichage dynamique des Pokémons via boucle @for (Angular 18+)
+  track pokemon.name : clé unique pour optimiser le rendu Angular
   -->
   @for (pokemon of filteredPokemons(); track pokemon.name) {
 
-  <!--
-    On utilise ici le composant <app-cards> pour afficher 1 Pokémon à la fois.
-    On lui transmet 3 propriétés grâce aux [inputs] :
-    - [name] : le nom du Pokémon
-    - [url] : son URL complète vers l’API
-    - [id] : son identifiant (extrait de l’URL dans le service)
-    Ces valeurs seront utilisées dans cards.component.ts pour afficher l’image, le nom, etc.
+    <!--
+    📇 Affichage d'une carte Pokémon via le composant <app-cards>
+    Props (inputs) passées :
+    - [name] → nom du Pokémon
+    - [url] → URL de détails de l’API
+    - [id] → ID du Pokémon (extrait dans le service)
     -->
-  <app-cards
-    [name]="pokemon.name"
-    [url]="pokemon.url"
-    [id]="getIdFromUrl(pokemon.url)"
-  />
-
+    <app-cards
+      [name]="pokemon.name"
+      [url]="pokemon.url"
+      [id]="pokemon.id" />
   }
 </div>

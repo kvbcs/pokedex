@@ -1,4 +1,5 @@
-// On importe les outils Angular nécessairesAdd commentMore actions
+// On importe les outils Angular nécessaires
+
 import { Component, EventEmitter, Output } from '@angular/core';
 // Component → décorateur pour déclarer un composant
 // EventEmitter → permet d’émettre un événement vers le composant parent
@@ -7,20 +8,25 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // FormsModule → utilisé ici si on fait de la liaison [(ngModel)], mais non indispensable ici car on utilise (input)
 
+
 @Component({
   selector: 'app-searchbar', // Nom de la balise HTML du composant : <app-searchbar>
 
-  standalone: true, // Le composant est autonome (Angular 15+), pas besoin de module
+  standalone: true,          // Le composant est autonome (Angular 15+), pas besoin de module
 
-  imports: [FormsModule], // Modules nécessaires à ce composant (ici FormsModule — optionnel dans ce cas)
+  imports: [FormsModule],    // Modules nécessaires à ce composant (ici FormsModule — optionnel dans ce cas)
 
   templateUrl: './searchbar.component.html', // Fichier HTML associé au composant
-  styleUrl: './searchbar.component.css', // Fichier CSS pour le style du composant
+  styleUrl: './searchbar.component.css',     // Fichier CSS pour le style du composant
 })
+
+
 export class SearchbarComponent {
   // ✅ Création d’un événement "searchChange" que le composant parent peut écouter
   // Le type de données envoyées est "string" → la chaîne tapée par l’utilisateur
   @Output() searchChange = new EventEmitter<string>();
+
+
 
   // ✅ Méthode appelée à chaque frappe clavier dans le champ <input>
   handleInput(event: Event): void {
@@ -35,3 +41,4 @@ export class SearchbarComponent {
     this.searchChange.emit(value);
   }
 }
+

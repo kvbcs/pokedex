@@ -16,16 +16,19 @@ import { PokemonService } from '../../CORE/SERVICES/pokemon.service';
 import { PokemonDetail } from '../../CORE/MODELS/types';
 // Type TypeScript pour décrire ce que contient un Pokémon détaillé (stats, image, poids, etc.)
 
+
 @Component({
   selector: 'app-pokemon-detail', // Balise HTML à utiliser si on voulait intégrer ce composant ailleurs
 
-  standalone: true, // Angular standalone = ce composant est autonome, sans besoin d’être dans un module
+  standalone: true,               // Angular standalone = ce composant est autonome, sans besoin d’être dans un module
 
-  imports: [CommonModule], // On importe CommonModule pour activer @if, @for, etc. dans le template
+  imports: [CommonModule],        // On importe CommonModule pour activer @if, @for, etc. dans le template
 
   templateUrl: './pokemon-detail.component.html', // Lien vers le HTML associé
-  styleUrl: './pokemon-detail.component.css', // Lien vers le CSS associé
+  styleUrl: './pokemon-detail.component.css'      // Lien vers le CSS associé
 })
+
+
 export class PokemonDetailComponent implements OnInit {
   // 💉 On injecte le service de routing pour lire les paramètres dans l’URL
   private route = inject(ActivatedRoute);
@@ -36,7 +39,8 @@ export class PokemonDetailComponent implements OnInit {
   // 📦 Variable qui contiendra les données du Pokémon affiché (remplie depuis l’API)
   pokemon?: PokemonDetail;
 
-  // Méthode appelée automatiquement quand le composant est initialisé
+    // Méthode appelée automatiquement quand le composant est initialisé
+
   ngOnInit(): void {
     // 🔍 On récupère le paramètre "id" dans l’URL : /pokemons/:id
     // Ce peut être soit l’ID numérique (ex: 25), soit le nom (ex: "pikachu")
@@ -45,8 +49,7 @@ export class PokemonDetailComponent implements OnInit {
     // ✅ Si l’ID est bien présent, on fait un appel API pour récupérer les données du Pokémon
     if (id) {
       this.pokemonService.getPokemonDetails(id).subscribe((data) => {
-        console.log(data);
-        
+
         // Quand la réponse de l’API arrive, on stocke les données dans "pokemon"
         this.pokemon = data;
       });

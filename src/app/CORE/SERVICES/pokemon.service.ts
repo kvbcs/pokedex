@@ -1,52 +1,50 @@
-// On rend ce service injectable dans toute l'application
+// 📦 Import Angular
 import { Injectable } from '@angular/core';
 
-// On importe HttpClient pour faire des appels HTTP
+// 🌐 Import pour faire les appels HTTP
 import { HttpClient } from '@angular/common/http';
 
-// On importe Observable (pour la gestion de flux de données asynchrones) et map (pour transformer les données reçues)
-import { Observable, map } from 'rxjs';
-import {
-  PokemonDetail,
-  PokemonList,
-  PokemonListResponse,
-} from '../MODELS/types';
+// 📊 Import RxJS pour gérer plusieurs appels API en parallèle
+import { forkJoin, map, Observable, switchMap } from 'rxjs';
 
-// Décorateur Angular : rend ce service disponible à l'échelle de l'application
+// 📐 Import de nos types définis dans types.ts
+import { PokemonListItem, PokemonDetail } from '../MODELS/types';
+
 @Injectable({
-  providedIn: 'root', // permet d’éviter de devoir importer ce service dans app.config.ts
+  providedIn: 'root' // Service injecté automatiquement dans toute l'application
 })
 export class PokemonService {
-  // URL de base vers l’API Pokémon (on y ajoutera /{name} ou ?limit=50 selon le besoin)
-  private baseUrl = 'https://pokeapi.co/api/v2/pokemon';
 
-  // On injecte HttpClient pour faire les appels HTTP à l’API
+  
+  // URL de base pour récupérer la liste des 50 premiers Pokémon
+  private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=50';
+
   constructor(private http: HttpClient) {}
 
-  // 🧪 Méthode pour récupérer la liste des 50 premiers Pokémon
-  getPokemons(): Observable<PokemonList[]> {
-    const url = `${this.baseUrl}?limit=50`; // URL complète vers les 50 premiers Pokémon
-
-    // On effectue un GET sur l'API et on transforme les résultats
-    return this.http.get<PokemonListResponse>(url).pipe(
-      map((response) =>
-        response.results.map((pokemon) => {
-          // On extrait l'ID depuis l’URL (qui est de la forme ".../pokemon/25/")
-          const id = parseInt(
-            pokemon.url.split('/').filter(Boolean).pop() || '0',
-            10
-          );
-
-          // On retourne un objet enrichi : { name, url, id }
-          return { ...pokemon, id };
-        })
-      )
+  // 🔁 Méthode pour récupérer la liste complète avec types enrichis
+  getPokemons(): Observable<PokemonListItem[]> {
+    return this.http.get<{ results: { name: string; url: string }[] }>(this.apiUrl).pipe(
+      // ⛓️ switchMap : après avoir reçu la liste de base, on appelle les détails de chaque Pokémon
+      switchMap((res) => {
+        const requests = res.results.map((pokemon, index) =>
+          this.http.get<PokemonDetail>(pokemon.url).pipe(
+            map((details) => ({
+              name: details.name,
+              url: pokemon.url,
+              id: index + 1, // ou details.id
+              types: details.types // ✅ On récupère les types à partir du détail
+            }))
+          )
+        );
+        // 🧠 forkJoin : attend que toutes les requêtes soient terminées
+        return forkJoin(requests);
+      })
     );
   }
 
-  // 🔍 Méthode pour récupérer les détails d’un Pokémon (par nom ou ID)
+  // 🔍 Méthode pour récupérer un Pokémon en détail via son ID ou son nom
   getPokemonDetails(nameOrId: string): Observable<PokemonDetail> {
-    // Exemple d'URL générée : https://pokeapi.co/api/v2/pokemon/pikachu
-    return this.http.get<PokemonDetail>(`${this.baseUrl}/${nameOrId}`);
+    const url = `https://pokeapi.co/api/v2/pokemon/${nameOrId}`;
+    return this.http.get<PokemonDetail>(url);
   }
 }
