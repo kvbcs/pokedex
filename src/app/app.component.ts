@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CardsComponent } from './models/cards/cards.component';
-import { PokemonListComponent } from './models/pokemon-list/pokemon-list.component';
-import { PokemonDetailComponent } from './models/pokemon-detail/pokemon-detail.component';
-import { SearchbarComponent } from './models/searchbar/searchbar.component';
+import { CardsComponent } from './SHARED/COMPONENTS/cards/cards.component';
+import { PokemonListComponent } from './FEATURES/pokemon-list/pokemon-list.component';
+import { PokemonDetailComponent } from './FEATURES/pokemon-detail/pokemon-detail.component';
+import { SearchbarComponent } from './SHARED/COMPONENTS/searchbar/searchbar.component';
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, CardsComponent, PokemonListComponent,PokemonDetailComponent, SearchbarComponent ],

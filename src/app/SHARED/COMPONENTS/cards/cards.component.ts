@@ -1,8 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import { PokemonService } from '../../services/pokemon.service';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { DetailsService } from '../../services/details.service';
+import { PokemonService } from '../../../CORE/SERVICES/pokemon.service';
 
 @Component({
   selector: 'app-cards',
@@ -20,7 +19,7 @@ getImageUrl(url: string): string {
   @Input() url!: string;
 
   public pokemonService = inject(PokemonService);
-  pokemons$ = this.pokemonService.getPokemon();
+  pokemons$ = this.pokemonService.getPokemons();
 
 
 }

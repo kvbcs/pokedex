@@ -4,6 +4,11 @@ export interface PokemonList {
   id: number; // ID qu'on extrait nous-mêmes à partir de l'URL
 }
 
+export type PokemonListResponse = {
+  count: number;
+  results: { name: string; url: string }[];
+}
+
 // Interface pour les détails d’un Pokémon (quand on appelle /pokemon/{name ou id})
 export interface PokemonDetail {
   id: number; // ID du Pokémon

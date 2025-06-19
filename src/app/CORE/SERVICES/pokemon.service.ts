@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 
 // On importe Observable (pour la gestion de flux de données asynchrones) et map (pour transformer les données reçues)
 import { Observable, map } from 'rxjs';
-import { PokemonDetail, PokemonList } from '../MODELS/types';
+import { PokemonDetail, PokemonList, PokemonListResponse } from '../MODELS/types';
 
 
 // Décorateur Angular : rend ce service disponible à l'échelle de l'application
@@ -25,11 +25,11 @@ export class PokemonService {
     const url = `${this.baseUrl}?limit=50`; // URL complète vers les 50 premiers Pokémon
 
     // On effectue un GET sur l'API et on transforme les résultats
-    return this.http.get<any>(url).pipe(
+    return this.http.get<PokemonListResponse>(url).pipe(
       map((response) =>
-        response.results.map((pokemon: any) => {
+        response.results.map((pokemon) => {
           // On extrait l'ID depuis l’URL (qui est de la forme ".../pokemon/25/")
-          const id = parseInt(pokemon.url.split('/').filter(Boolean).pop(), 10);
+          const id = parseInt(pokemon.url.split('/').filter(Boolean).pop() || '0', 10);
 
           // On retourne un objet enrichi : { name, url, id }
           return { ...pokemon, id };

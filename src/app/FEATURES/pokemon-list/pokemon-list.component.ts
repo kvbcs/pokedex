@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { CardsComponent } from '../cards/cards.component';
-import { RouterLink } from '@angular/router';
-import { PokemonService } from '../../services/pokemon.service';
-import { AsyncPipe } from '@angular/common';
-import { SearchbarComponent } from '../searchbar/searchbar.component';
-import { Pokemon } from '../../CORE/MODELS/types';
+
 import { map } from 'rxjs';
+import { CardsComponent } from '../../SHARED/COMPONENTS/cards/cards.component';
+import { RouterLink } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { SearchbarComponent } from '../../SHARED/COMPONENTS/searchbar/searchbar.component';
+import { PokemonService } from '../../CORE/SERVICES/pokemon.service';
+import { PokemonList } from '../../CORE/MODELS/types';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -15,7 +16,7 @@ import { map } from 'rxjs';
 })
 export class PokemonListComponent {
   public pokemonService = inject(PokemonService);
-  pokemons$ = this.pokemonService.getPokemon();
+  pokemons$ = this.pokemonService.getPokemons();
   searchTerm: string = '';
 
   onSearchChange(term: string): void {
@@ -25,7 +26,7 @@ export class PokemonListComponent {
   filteredPokemons() {
     return this.pokemons$.pipe(
       // Import map from 'rxjs/operators' if not already imported
-      map((pokemons: Pokemon[]) =>
+      map((pokemons: PokemonList[]) =>
         pokemons.filter((p) => p.name.toLowerCase().includes(this.searchTerm))
       )
     );
