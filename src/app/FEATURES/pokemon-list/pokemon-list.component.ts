@@ -22,6 +22,9 @@ export class PokemonListComponent {
   constructor() {
     this.pokemonService.getPokemons().subscribe(this.pokemons.set);
   }
+  getIdFromUrl(url: string): number {
+    return Number(url.split('/').filter(Boolean).pop());
+  }
 
   onSearchChange(term: string): void {
     this.searchTerm.set(term.toLowerCase());

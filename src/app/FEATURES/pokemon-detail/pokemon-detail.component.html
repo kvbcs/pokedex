@@ -1,1 +1,31 @@
-<p>pokemon-detail works!</p>
+@if (pokemon; as p) {
+    <div class="pokemon-detail">
+      <h2>#{{ p.id }} - {{ p.name | titlecase }}</h2>
+  
+      <img [src]="p.sprites.front_default" [alt]="p.name" />
+  
+      <p><strong>Taille :</strong> {{ p.height / 10 }} m</p>
+      <p><strong>Poids :</strong> {{ p.weight / 10 }} kg</p>
+  
+      <p><strong>Types :</strong>
+        @for (t of p.types; track t.type.name; let isLast = last) {
+          {{ t.type.name }}<span @if (!isLast) { , }></span>
+        }
+      </p>
+  
+      <p><strong>Capacités :</strong>
+        @for (a of p.abilities; track a.ability.name; let isLast = last) {
+          {{ a.ability.name }}<span @if (!isLast) { , }></span>
+        }
+      </p>
+  
+      <div>
+        <strong>Statistiques :</strong>
+        <ul>
+          @for (s of p.stats; track s.stat.name) {
+            <li>{{ s.stat.name }} : {{ s.base_stat }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  }

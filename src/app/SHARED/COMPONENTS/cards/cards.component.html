@@ -1,4 +1,4 @@
-<div class="card">
-  <img [src]=getImageUrl(url) [alt]="name" />
+<div class="card" (click)="goToDetails()" style="cursor: pointer;">
+  <img [src]="getImageUrl(url)" [alt]="name" />
   <p class="name">{{ name }}</p>
 </div>

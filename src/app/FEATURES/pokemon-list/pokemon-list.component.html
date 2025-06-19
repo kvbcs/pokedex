@@ -3,9 +3,10 @@
 <div class="cards-container">
   @for (pokemon of filteredPokemons(); track pokemon.name) {
     <app-cards
-      [name]="pokemon.name"
-      [url]="pokemon.url"
-      [id]="pokemon.id" />
+  [name]="pokemon.name"
+  [url]="pokemon.url"
+  [id]="getIdFromUrl(pokemon.url)" />
+
 
   }
 </div>
