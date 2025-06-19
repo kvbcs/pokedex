@@ -27,9 +27,7 @@ export class CardsComponent {
   }
 
   goToDetails(): void {
-    const id = this.getIdFromUrl(this.url);
-    console.log('allo', id);
-    this.router.navigate(['/pokemon/', id]);
+    this.router.navigate(['/pokemon', this.id]);
   }
 
   public pokemonService = inject(PokemonService);
