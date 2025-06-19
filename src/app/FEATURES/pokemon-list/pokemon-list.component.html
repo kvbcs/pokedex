@@ -1,12 +1,35 @@
+<!--Add commentMore actions
+Composant personnalisé <app-searchbar>
+Ce composant permet à l’utilisateur de taper du texte dans un champ de recherche.
+Il émet un événement "searchChange" dès que l’utilisateur écrit quelque chose.
+(onSearchChange($event)) → on appelle la méthode "onSearchChange" dans le fichier .ts en lui passant le mot recherché.
+-->
 <app-searchbar (searchChange)="onSearchChange($event)"></app-searchbar>
 
+<!--
+Conteneur des cartes de Pokémon, probablement stylisé via la classe CSS "cards-container"
+-->
 <div class="cards-container">
+  <!--
+  Angular 18+ syntaxe : @for = remplace l’ancien *ngFor
+  On parcourt ici la liste retournée par la méthode filteredPokemons()
+  track pokemon.name : indique à Angular de suivre les changements via le nom (clé d’identification unique pour optimiser les performances)
+  -->
   @for (pokemon of filteredPokemons(); track pokemon.name) {
-    <app-cards
-  [name]="pokemon.name"
-  [url]="pokemon.url"
-  [id]="getIdFromUrl(pokemon.url)" />
 
+  <!--
+    On utilise ici le composant <app-cards> pour afficher 1 Pokémon à la fois.
+    On lui transmet 3 propriétés grâce aux [inputs] :
+    - [name] : le nom du Pokémon
+    - [url] : son URL complète vers l’API
+    - [id] : son identifiant (extrait de l’URL dans le service)
+    Ces valeurs seront utilisées dans cards.component.ts pour afficher l’image, le nom, etc.
+    -->
+  <app-cards
+    [name]="pokemon.name"
+    [url]="pokemon.url"
+    [id]="getIdFromUrl(pokemon.url)"
+  />
 
   }
 </div>
